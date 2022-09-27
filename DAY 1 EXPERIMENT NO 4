@@ -1,0 +1,75 @@
+mysql> select*from orders;
++---------+------+-----------+
+| orderid | p_id | ordername |
++---------+------+-----------+
+|   19282 |   98 | poori     |
+|    8832 |   18 | dosa      |
+|    8753 |   76 | idily     |
+|    9877 |    7 | pongal    |
++---------+------+-----------+
+4 rows in set (0.00 sec)
+mysql> delete from orders
+    -> where product_id =76;
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select*from orders;
++---------+------------+-----------+
+| orderid | product_id | ordername |
++---------+------------+-----------+
+|   19282 |         98 | poori     |
+|    8832 |         18 | dosa      |
+|    9877 |          7 | pongal    |
++---------+------------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> set @@autocommit = 0;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> select*from orders;
++---------+------------+-----------+
+| orderid | product_id | ordername |
++---------+------------+-----------+
+|   19282 |         98 | poori     |
+|    8832 |         18 | dosa      |
+|    7668 |         76 | vadai     |
++---------+------------+-----------+
+3 rows in set (0.01 sec)
+
+mysql> insert into orders values(123,55,'pongal');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from orders;
++---------+------------+-----------+
+| orderid | product_id | ordername |
++---------+------------+-----------+
+|   19282 |         98 | poori     |
+|    8832 |         18 | dosa      |
+|    7668 |         76 | vadai     |
+|     123 |         55 | pongal    |
++---------+------------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> delete from orders where ordername='dosa';
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from orders;
++---------+------------+-----------+
+| orderid | product_id | ordername |
++---------+------------+-----------+
+|   19282 |         98 | poori     |
+|    7668 |         76 | vadai     |
++---------+------------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> select * from orders;
++---------+------------+-----------+
+| orderid | product_id | ordername |
++---------+------------+-----------+
+|   19282 |         98 | poori     |
+|    8832 |         18 | dosa      |
+|    7668 |         76 | vadai     |
++---------+------------+-----------+
+3 rows in set (0.00 sec)
